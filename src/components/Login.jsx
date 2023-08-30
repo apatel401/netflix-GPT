@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
 import Header from "./Header";
-import { validate } from "../Utils/Validation";
-
+import { validate } from "../utils/Validation";
+import { auth } from "../utils/firebase";
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword} from "firebase/auth";
+import { Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [learnMore, setLearnMore] = useState(false);
@@ -10,10 +13,47 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const msg = validate(email.current.value, password.current.value)
     setErrMg(msg)
+    if(msg) return;
+
+    if(isSignedIn){
+    //Sign Up logic
+    createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user)
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+      setErrMg(errorCode)
+    });
+    }else{
+    //Sign in logic
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // console.log(user)
+     navigate("/browse")
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if(errorCode === "auth/user-not-found"){
+        setErrMg("User not found. please sign up first")
+      }
+    });
+    }
   };
   return (
     <>
