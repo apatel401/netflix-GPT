@@ -3,13 +3,22 @@ import { useRef, useState } from "react";
 import Header from "./Header";
 import { validate } from "../utils/Validation";
 import { auth } from "../utils/firebase";
-import { createUserWithEmailAndPassword , signInWithEmailAndPassword} from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../utils/userSlice";
+
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [learnMore, setLearnMore] = useState(false);
   const [errMsg, setErrMg] = useState(null);
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -17,42 +26,70 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const msg = validate(email.current.value, password.current.value)
-    setErrMg(msg)
-    if(msg) return;
+    const msg = validate(email.current.value, password.current.value);
+    setErrMg(msg);
+    if (msg) return;
 
-    if(isSignedIn){
-    //Sign Up logic
-    createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user)
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-      setErrMg(errorCode)
-    });
-    }else{
-    //Sign in logic
-    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // console.log(user)
-     navigate("/browse")
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      if(errorCode === "auth/user-not-found"){
-        setErrMg("User not found. please sign up first")
-      }
-    });
+    if (isSignedIn) {
+      //Sign Up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL:
+              "https://avatars.githubusercontent.com/u/51169932?s=96&v=4",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName, photoUrl } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoUrl: photoUrl,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrMg(errorCode);
+        });
+    } else {
+      //Sign in logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // console.log(user)
+          navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorCode === "auth/user-not-found") {
+            setErrMg("User not found. please sign up first");
+          }
+        });
     }
   };
   return (
@@ -67,6 +104,7 @@ const Login = () => {
             <input
               placeholder="Full Name"
               type="text"
+              ref={name}
               className="my-3 p-3 rounded-md bg-gray-700"
             />
           )}
@@ -82,7 +120,7 @@ const Login = () => {
             type="password"
             className="my-3 p-3  rounded-md bg-gray-700"
           />
-          {errMsg &&  <p className="text-red-500 my-4">{errMsg}</p>}
+          {errMsg && <p className="text-red-500 my-4">{errMsg}</p>}
           <button
             className="bg-[#e50914] text-lg px-4 py-3 my-2 text-white rounded-md"
             onClick={handleSubmit}
