@@ -1,11 +1,16 @@
-import Header from "./Header"
-
+import useNowPlaying from "../utils/useNowPlaying";
+import Header from "./Header";
+import HeroContainer from "./HeroContainer";
+import SecContainer from "./SecContainer";
 const Browse = () => {
+  useNowPlaying()
   return (
     <>
-    <Header />
+      <Header />
+      <HeroContainer />
+      <SecContainer />
     </>
-  )
-}
+  );
+};
 
-export default Browse
+export default Browse;
