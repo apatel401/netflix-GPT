@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
-import useMovieTrailer from "../utils/useMovieTrailer";
+import useMovieTrailer from "../hooks/useMovieTrailer";
 const VideoBg = ({ id }) => {
   const videoTrailer = useSelector((state) => state.movies?.trailerVideos);
 

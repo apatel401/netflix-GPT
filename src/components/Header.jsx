@@ -37,7 +37,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute z-10 px-8 bg-gradient-to-b from-black w-screen flex justify-between">
+    <div className="absolute z-10 px-8 bg-gradient-to-b from-black w-full flex justify-between">
       <img className="w-40 py-6" alt="logo" src="./Netflix.svg" />
       {user && <div className="flex">
       <img className="w-8 h-8 my-auto" alt="logo" src={user.photoUrl} />

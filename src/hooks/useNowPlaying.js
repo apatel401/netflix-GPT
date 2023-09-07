@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch } from 'react-redux';
-import { NOW_PLAYING, options } from './constant';
-import { addNowPlayingMovies } from './movieSlice';
+import { NOW_PLAYING, options } from '../utils/constant';
+import { addNowPlayingMovies } from '../utils/movieSlice';
 import { useEffect } from 'react';
 
 const useNowPlaying = () => {

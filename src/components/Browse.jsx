@@ -1,4 +1,4 @@
-import useNowPlaying from "../utils/useNowPlaying";
+import useNowPlaying from "../hooks/useNowPlaying";
 import Header from "./Header";
 import HeroContainer from "./HeroContainer";
 import SecContainer from "./SecContainer";

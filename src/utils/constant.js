@@ -7,3 +7,9 @@ export const options = {
   };
 
 export const NOW_PLAYING = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1'
+
+export const POSTER_PATH = 'https://image.tmdb.org/t/p/'
+
+export const POSTER_SM = 'w342'
+export const POSTER_MD = 'w500'
+export const POSTER_LG = 'w780'
