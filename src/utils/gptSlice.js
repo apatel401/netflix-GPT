@@ -6,8 +6,10 @@ const gptSlice = createSlice({
         gptToggle: false
     },
     reducers: {
-        toggleGpt: (state, action) => {
-            state = !state
+        toggleGpt: (state) => {
+            state.gptToggle = !state.gptToggle
         }
     }
 })
+export const {toggleGpt} = gptSlice.actions
+export default gptSlice.reducer
