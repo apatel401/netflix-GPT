@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -7,10 +8,12 @@ import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGpt } from "../utils/gptSlice";
 import { changeLang } from "../utils/settingSlice";
-import { SUPPORTED_LNG } from "../utils/langConstant";
+import lang, { SUPPORTED_LNG } from "../utils/langConstant";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const currentLanguage = useSelector((state) => state.setting.language);
+  const gptToggle = useSelector((state) => state.gpt.gptToggle);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +30,7 @@ const Header = () => {
   useEffect(() => {
     //setting up current language according to html page lang
     const currentLanguage = document.querySelector("html").lang || "en";
-    console.log(currentLanguage);
+    // console.log(currentLanguage);
     dispatch(changeLang(currentLanguage));
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -50,36 +53,45 @@ const Header = () => {
   };
 
   const handleLangChange = (e) => {
-    dispatch(changeLang(e.target.value))
-  }
+    console.log(e.target.value);
+    dispatch(changeLang(e.target.value));
+  };
 
   return (
     <div className="absolute z-10 px-8 bg-gradient-to-b from-black w-full flex justify-between">
-      <img className="w-40 py-6" alt="logo" src="./Netflix.svg" />
-      {user && (
-        <div className="flex">
-          <select className="mr-4 my-auto py-[0.375rem] px-3 bg-black text-white border-2 border-red-600">
-            {SUPPORTED_LNG.map((lang) => {
-              return (
-                <option key={lang.identifier} value={lang.identifier}
-                onChange={() => handleLangChange()}>
-                  {lang.name}
-                </option>
-              );
-            })}
-          </select>
-          <button
-            className="bg-red-600 py-[0.375rem] px-3 my-auto mr-4 text-white"
-            onClick={(e) => handleSearchBtn(e)}
-          >
-            GPT Search
-          </button>
-          <img className="w-8 h-8 my-auto" alt="logo" src={"./avatar.png"} />
-          <button className="text-white ml-2 my-2" onClick={handleSignOut}>
-            Sign Out
-          </button>
-        </div>
-      )}
+      <img
+        className="w-40 py-6"
+        alt={lang[currentLanguage].logoAlt}
+        src="./Netflix.svg"
+      />
+      <div className="flex">
+        <select
+          className="mr-4 my-auto py-[0.375rem] px-3 bg-black text-white border-2 border-red-600"
+          onChange={handleLangChange}
+        >
+          {SUPPORTED_LNG.map((lang) => {
+            return (
+              <option key={lang.identifier} value={lang.identifier}>
+                {lang.name}
+              </option>
+            );
+          })}
+        </select>
+        {user && (
+          <>
+            <button
+              className="bg-red-600 py-[0.375rem] px-3 my-auto mr-4 text-white"
+              onClick={(e) => handleSearchBtn(e)}
+            >
+              {!gptToggle ? lang[currentLanguage].gptSearch : lang[currentLanguage].homePage}
+            </button>
+            <img className="w-8 h-8 my-auto" alt={lang[currentLanguage].logoAlt} src={"./avatar.png"} />
+            <button className="text-white ml-2 my-2" onClick={handleSignOut}>
+              {lang[currentLanguage].signOutBtn}
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

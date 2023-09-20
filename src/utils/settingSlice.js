@@ -8,7 +8,7 @@ const settingSlice = createSlice({
     },
     reducers: {
         changeLang: (state, action) => {
-            return action.payload
+            state.language = action.payload
         }
     }
 })

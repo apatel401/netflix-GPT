@@ -10,9 +10,11 @@ import {
 import { updateProfile } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import lang from "../utils/langConstant";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const currentLang = useSelector(state => state.setting.language)
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [learnMore, setLearnMore] = useState(false);
   const [errMsg, setErrMg] = useState(null);
@@ -92,24 +94,24 @@ const Login = () => {
         <Header />
         <form className="w-full m-auto flex flex-col justify-center h-full min-h-full bg-black bg-opacity-80 max-w-[420px] p-8 my-20">
           <h2 className="text-white my-2 text-2xl font-semibold">
-            {isSignedIn ? "Sign Up" : "Sign In"}
+            {isSignedIn ? lang[currentLang].signUpBtn : lang[currentLang].signInBtn}
           </h2>
           {isSignedIn && (
             <input
-              placeholder="Full Name"
+              placeholder={lang[currentLang].namePlaceholder}
               type="text"
               ref={name}
               className="my-3 p-3 rounded-md bg-gray-700"
             />
           )}
           <input
-            placeholder="Email Address"
+            placeholder={lang[currentLang].emailPlaceholder}
             ref={email}
             type="text"
             className="my-3 p-3 rounded-md bg-gray-700"
           />
           <input
-            placeholder="Password"
+            placeholder={lang[currentLang].passwordPlaceholder}
             ref={password}
             type="password"
             className="my-3 p-3  rounded-md bg-gray-700"
@@ -119,26 +121,25 @@ const Login = () => {
             className="bg-[#e50914] text-lg px-4 py-3 my-2 text-white rounded-md"
             onClick={handleSubmit}
           >
-            {isSignedIn ? "Sign Up" : "Sign In"}
+            {isSignedIn ? lang[currentLang].signUpBtn : lang[currentLang].signInBtn}
           </button>
           <p className="text-gray-500  my-4">
-            New to Netflix?{" "}
+           {lang[currentLang].new2Netflix}
             <span
-              className="text-white hover:underline cursor-pointer"
+              className="ml-1 text-white hover:underline cursor-pointer"
               onClick={() => setIsSignedIn(!isSignedIn)}
             >
-              {isSignedIn ? "Already Registered. Sign in now" : "Sign up Now"}
+              {isSignedIn ? lang[currentLang].alreadyRgstr : lang[currentLang].signupNow}
             </span>
           </p>
           <p className="text-gray-500  my-4">
-            This page is protected by Google reCAPTCHA to ensure you&apos;re not
-            a bot.{" "}
+            {lang[currentLang].learnMore}
             {!learnMore && (
               <span
                 onClick={() => setLearnMore(true)}
                 className="text-white hover:underline cursor-pointer"
               >
-                Learn more
+                {lang[currentLang].learnMoreBtn}
               </span>
             )}
           </p>
