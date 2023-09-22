@@ -2,6 +2,7 @@
 import { POSTER_LG, POSTER_PATH } from "../utils/constant";
 
 const MovieCard = ({ poster_path, title }) => {
+  if (!poster_path) return null;
   return (
     <div className="pr-4 w-40">
       <img
