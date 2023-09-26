@@ -7,10 +7,10 @@ const VideoBg = ({ id }) => {
   useMovieTrailer(id)
 
   return (
-    <div>
+    <div className="pt-24 md:pt-0">
       <iframe
       className="w-full aspect-video"
-        src={`https://www.youtube-nocookie.com/embed/${videoTrailer?.key}?autoplay=1&mute=1&loop=1`}
+        src={`https://www.youtube-nocookie.com/embed/${videoTrailer?.key}?autoplay=1&mute=1&loop=1&controls=0`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen

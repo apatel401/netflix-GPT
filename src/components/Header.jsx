@@ -58,15 +58,15 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute z-10 px-8 bg-gradient-to-b from-black w-full flex justify-between">
+    <div className={`absolute z-10 px-8 md:bg-gradient-to-b md:from-black bg-black w-full flex md:flex-row justify-between md:py-0 py-4 ${user ? 'flex-col': 'flex-row'}`}>
       <img
-        className="w-40 py-6"
+        className={`w-24 md:w-40 md:py-6 py-1 md:mx-0 ${user ? 'mx-auto': 'mx-0'}`}
         alt={lang[currentLanguage].logoAlt}
         src="./Netflix.svg"
       />
-      <div className="flex">
+      <div className={`flex ${user ? 'justify-center' : 'justify-normal'}`}>
         <select
-          className="mr-4 my-auto py-[0.375rem] px-3 bg-black text-white border-2 border-red-600"
+          className="mr-4 my-auto py-[0.25rem] px-2 md:py-[0.375rem] md:px-3 bg-black text-white border-2 border-red-600"
           onChange={handleLangChange}
         >
           {SUPPORTED_LNG.map((lang) => {
@@ -80,7 +80,7 @@ const Header = () => {
         {user && (
           <>
             <button
-              className="bg-red-600 py-[0.375rem] px-3 my-auto mr-4 text-white"
+              className="bg-red-600 py-[0.25rem] px-1 md:py-[0.375rem] md:px-3 my-auto mr-4 text-white border-2 border-red-600"
               onClick={(e) => handleSearchBtn(e)}
             >
               {!gptToggle ? lang[currentLanguage].gptSearch : lang[currentLanguage].homePage}

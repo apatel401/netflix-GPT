@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {  options } from '../utils/constant';
 import { addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies } from '../utils/movieSlice';
 import { useEffect } from 'react';
 
 const useMovies = (fetchUrl) => {
     const dispatch = useDispatch();
+    const { nowPlayingMovies, popularMovies,topRatedMovies,upcomingMovies} = useSelector(store => store.movies)
     const getNowPlayingMovies = async () => {
       const data = await fetch(fetchUrl, options);
       const json = await data.json();
@@ -30,7 +31,9 @@ const useMovies = (fetchUrl) => {
     };
   
     useEffect(() => {
-      getNowPlayingMovies();
+      if(!nowPlayingMovies || !popularMovies || !topRatedMovies || !upcomingMovies){
+        getNowPlayingMovies();
+      }
     }, []);
 }
 

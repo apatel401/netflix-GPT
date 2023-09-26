@@ -49,19 +49,19 @@ const GptSearchPage = () => {
   };
   return (
     <>
-      <div className="flex justify-center pt-[10%] relative">
+      <div className="flex justify-center pt-[50%]  md:pt-[10%] relative">
         <form
-          className="bg-black grid grid-cols-12 w-1/2 p-2"
+          className="bg-black grid grid-cols-12 w-[80%] md:w-1/2 p-2"
           onSubmit={(e) => handleSearch(e)}
         >
           <input
             ref={inputRef}
-            className="p-2 col-span-10"
+            className="p-2 md:col-span-10 col-span-8"
             type="text"
             placeholder={lang[currentLanguage].searchPlaceHolder}
             value={searchText}
           />
-          <button className="bg-red-600 text-white p-2 ml-2  col-span-2">
+          <button className="bg-red-600 text-white p-2 ml-2  md:col-span-2 col-span-4">
             {lang[currentLanguage].search}
           </button>
         </form>
