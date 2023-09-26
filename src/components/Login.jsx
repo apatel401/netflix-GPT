@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
 import Header from "./Header";
-import { validate } from "../utils/Validation";
+import { validate } from "../utils/validation";
 import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
