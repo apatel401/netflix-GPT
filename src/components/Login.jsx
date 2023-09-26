@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
 import Header from "./Header";
-import { validate } from "../utils/validation";
+import { validation } from "../utils/validation";
 import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -26,7 +26,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const msg = validate(email.current.value, password.current.value);
+    const msg = validation(email.current.value, password.current.value);
     setErrMg(msg);
     if (msg) return;
 
