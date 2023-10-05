@@ -91,7 +91,7 @@ const Login = () => {
   return (
     <>
       <div className="bg-hero-pattern bg-opacity-50 bg-no-repeat bg-auto h-full relative flex flex-col min-h-full min-w-full">
-        <Header />
+        <Header base_path={"./"} />
         <form className="w-full m-auto flex flex-col justify-center h-full min-h-full bg-black bg-opacity-80 max-w-[420px] p-8 my-20 md:my-32">
           <h2 className="text-white my-2 text-2xl font-semibold">
             {isSignedIn ? lang[currentLang].signUpBtn : lang[currentLang].signInBtn}

@@ -15,7 +15,7 @@ const Browse = () => {
 
   return (
     <>
-      <Header />
+      <Header base_path="./" />
       {displayGptPage ? (
         <GptSearchPage />
       ) : (
