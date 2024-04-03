@@ -12,12 +12,7 @@ const GptSearchPage = () => {
   const [msg, setMsg] = useState(null)
   const dispatch = useDispatch();
   const movies = useSelector((store) => store.gpt.movies);
-  const searchText = useSelector((store) => store.gpt.searchText);
-  const gptQuery = `Act as movie recommand ${inputRef?.current?.value}. Only give me names of 5 movies, comma separated like the example result given ahead. Example: Gadar, Sholay, Don, Golmaal, koi mill gaya`;
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-  });
+  // const searchText = useSelector((store) => store.gpt.searchText);
 
   const currentLanguage = useSelector((state) => state.setting.language);
   const handleSearch = async (e) => {
@@ -27,13 +22,20 @@ setMsg("You must enter some suggestions to get better assistance")
 return
     }
     dispatch(addSearchText(inputRef.current.value));
+    const gptQuery = `Act as movie recommandation system ${inputRef?.current?.value}. Only give me names of 5 movies, comma separated like the example result given ahead. Example: Gadar, Sholay, Don, Golmaal, koi mill gaya`;
+    const openai = new OpenAI({
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      dangerouslyAllowBrowser: true,
+    });
     const completion = await openai.chat.completions.create({
       messages: [{ role: "user", content: gptQuery }],
       model: "gpt-3.5-turbo",
     });
     const gptMovies = completion.choices[0].message?.content.split(",")
+    // console.log(gptMovies)
+    // console.log(inputRef?.current?.value)
     const promiseArray = gptMovies.map((movie) => fetchMovies(movie))
-
+// console.log(promiseArray)
     const tmdbResults = await Promise.all(promiseArray);
     dispatch(
       addMovieSuggestions({
@@ -69,7 +71,6 @@ return
             className="p-2 md:col-span-10 col-span-8"
             type="text"
             placeholder={lang[currentLanguage].searchPlaceHolder}
-            defaultValue={searchText}
             onChange={() => {setMsg("")}}
           />
           <button className="bg-red-600 text-white p-2 ml-2  md:col-span-2 col-span-4">

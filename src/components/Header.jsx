@@ -11,7 +11,7 @@ import { toggleGpt } from "../utils/gptSlice";
 import { changeLang } from "../utils/settingSlice";
 import lang, { SUPPORTED_LNG } from "../utils/langConstant";
 import { useLocation } from "react-router-dom";
-
+import { addMovieSuggestions } from "../utils/gptSlice";
 const Header = ({ base_path }) => {
   const user = useSelector((state) => state.user);
   const currentLanguage = useSelector((state) => state.setting.language);
@@ -59,15 +59,25 @@ const Header = ({ base_path }) => {
   const handleSearchBtn = (e) => {
     e.preventDefault();
     dispatch(toggleGpt());
+    dispatch(
+      addMovieSuggestions({
+        suggestedMovies: null,
+        suggestedMovieNames: null,
+      }))
   };
 
   const handleLangChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     dispatch(changeLang(e.target.value));
   };
   const handleHome = (e) => {
     if (gptToggle) {
       dispatch(toggleGpt());
+      dispatch(
+        addMovieSuggestions({
+          suggestedMovies: null,
+          suggestedMovieNames: null,
+        }))
     }
     let newPath = "./";
     if (location.pathname.includes("movie")) {
