@@ -12,10 +12,17 @@ const lang = {
     alreadyRgstr: "Already Registred? Sign In Now.",
     learnMore: "This page is protected by Google reCAPTCHA to ensure you're not a bot.",
     learnMoreBtn: "Learn more",
+    learnMoreExpanded: "Information collected by Google reCAPTCHA is subject to Google's Privacy Policy and Terms of Service and is used to provide, maintain and improve the reCAPTCHA service and for general security purposes (it is not used for personalized advertising by Google).",
     search: "Search",
     searchPlaceHolder: "What would you like to watch today?",
     gptSearch: "GPT Search",
-    homePage: "Homepage"
+    homePage: "Homepage",
+    nowPlaying: "Now Playing",
+    popular: "Popular",
+    upcoming: "Upcoming",
+    topRated: "Top rated",
+    playBtn: "Play",
+    moreInfoBtn: "More Info"
   },
   hin: {
     logoAlt: "प्रतीक चिन्ह",
@@ -30,11 +37,17 @@ const lang = {
     alreadyRgstr: "पहले से ही पंजीकृत हैं? अब साइन इन करो।",
     learnMore: "यह पृष्ठ Google reCAPTCHA द्वारा सुरक्षित है ताकि यह सुनिश्चित किया जा सके कि आप बॉट नहीं हैं।",
     learnMoreBtn: "अधिक जानें",
-    learnMoreExpanded: "Les informations collectées par Google reCAPTCHA sont soumises à la politique de confidentialité et aux conditions d'utilisation de Google et sont utilisées pour fournir, maintenir et améliorer le service reCAPTCHA et à des fins générales de sécurité (elles ne sont pas utilisées à des fins de publicité personnalisée par Google).",
+    learnMoreExpanded: "Google reCAPTCHA द्वारा एकत्र की गई जानकारी Google की गोपनीयता नीति और सेवा की शर्तों के अधीन है और इसका उपयोग reCAPTCHA सेवा प्रदान करने, बनाए रखने और सुधारने और सामान्य सुरक्षा उद्देश्यों के लिए किया जाता है (इसका उपयोग Google द्वारा वैयक्तिकृत विज्ञापन के लिए नहीं किया जाता है)",
     search: "खोज",
     searchPlaceHolder: "आज आप क्या देखना चाहेंगे?",
     gptSearch: "जीपीटी खोज",
-    homePage: "मुखपृष्ठ"
+    homePage: "मुखपृष्ठ",
+    nowPlaying: "अभी फिल्में चल रही हैं",
+    popular: "लोकप्रिय",
+    upcoming: "आगामी",
+    topRated: "टॉप रेटेड",
+    playBtn: "चलाएं",
+    moreInfoBtn: "और जानकारी"
     
   },
   fr: {
@@ -54,7 +67,13 @@ const lang = {
     search: "Recherche",
     searchPlaceHolder: "Qu’aimeriez-vous regarder aujourd’hui ?",
     gptSearch: "Recherche gpt",
-    homePage: "page d'accueil"
+    homePage: "page d'accueil",
+    nowPlaying: "Lecture en cours",
+    popular: "populaire",
+    upcoming: "A venir",
+    topRated: "Les mieux notés",
+    playBtn: "Jouer",
+    moreInfoBtn: "Plus d'informations"
   },
 };
 

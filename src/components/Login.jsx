@@ -145,8 +145,7 @@ const Login = () => {
           </p>
           {learnMore && (
             <p className="text-gray-500  my-4 text-sm">
-              The information collected by Google reCAPTCHA is subject to the
-              Google{" "}
+             {lang[currentLang].learnMoreExpanded}
               <a
                 href="https://policies.google.com/privacy"
                 target="_blank"
@@ -155,7 +154,6 @@ const Login = () => {
               >
                 Privacy Policy
               </a>{" "}
-              and{" "}
               <a
                 className="text-white hover:underline cursor-pointer"
                 rel="noreferrer"
@@ -164,9 +162,6 @@ const Login = () => {
               >
                 Terms of Service
               </a>
-              , and is used for providing, maintaining, and improving the
-              reCAPTCHA service and for general security purposes (it is not
-              used for personalized advertising by Google).
             </p>
           )}
         </form>
